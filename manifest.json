@@ -1,0 +1,24 @@
+{
+    "manifest_version": 3,
+    "name": "RemindMe",
+    "version": "1.0",
+    "description": "A Reminder Extention Made By Efficitech",
+    "permissions": [
+      "storage",
+      "notifications",
+      "activeTab"
+    ],
+    "background": {
+      "service_worker": "background.js"
+    },
+    "action": {
+    "default_popup": "popup.html",
+    "default_icon": "Logo.png"
+  },
+  "icons": {
+    "16": "Logo.png",
+    "48": "Logo.png",
+    "128": "Logo.png"
+  }
+  }
+  
