@@ -49,7 +49,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
             chrome.storage.local.set({ reminders }, () => {
                 displayReminders(reminders);
-                alert(`Reminder set for ${reminderName} at ${reminderTime}`);
                 resetForm();
             });
         });
