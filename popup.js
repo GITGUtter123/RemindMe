@@ -9,7 +9,17 @@ document.addEventListener("DOMContentLoaded", () => {
         displayReminders(result.reminders);
     });
 
-    setReminderButton.addEventListener("click", addReminder);
+    setReminderButton.addEventListener("click", (e) => {
+        // Trigger particle effect
+        triggerParticleEffect(e);
+
+        // Determine if it's adding or updating a reminder
+        if (setReminderButton.textContent === "Set Reminder") {
+            addReminder();
+        } else {
+            updateReminder();
+        }
+    });
 
     // Function to add a new reminder
     function addReminder() {
@@ -40,6 +50,40 @@ document.addEventListener("DOMContentLoaded", () => {
             chrome.storage.local.set({ reminders }, () => {
                 displayReminders(reminders);
                 alert(`Reminder set for ${reminderName} at ${reminderTime}`);
+                resetForm();
+            });
+        });
+    }
+
+    // Function to update an existing reminder
+    function updateReminder() {
+        const reminderName = reminderNameInput.value.trim();
+        const reminderTime = reminderTimeInput.value;
+
+        if (!reminderName || !reminderTime) {
+            alert("Please enter a name and time for your reminder.");
+            return;
+        }
+
+        const [hours, minutes] = reminderTime.split(":");
+        const updatedDate = new Date();
+        updatedDate.setHours(hours);
+        updatedDate.setMinutes(minutes);
+        updatedDate.setSeconds(0);
+
+        const updatedReminder = {
+            name: reminderName,
+            time: updatedDate.getTime(),
+            triggered: false,
+        };
+
+        chrome.storage.local.get({ reminders: [] }, (result) => {
+            const reminders = result.reminders;
+            reminders[selectedReminderIndex] = updatedReminder;
+
+            chrome.storage.local.set({ reminders }, () => {
+                displayReminders(reminders);
+                alert(`Reminder updated to ${reminderName} at ${reminderTime}`);
                 resetForm();
             });
         });
@@ -89,50 +133,17 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Edit reminder
+    let selectedReminderIndex = -1;
+
     function editReminder(index, reminder) {
+        selectedReminderIndex = index;
+
         // Populate the input fields with the current reminder values
         reminderNameInput.value = reminder.name;
         reminderTimeInput.value = new Date(reminder.time).toLocaleTimeString().slice(0, 5);
 
         // Change the Set button to Update
         setReminderButton.textContent = "Update Reminder";
-
-        // Remove the current event listener for adding a reminder
-        setReminderButton.removeEventListener("click", addReminder);
-
-        // Add an event listener for updating the reminder
-        setReminderButton.addEventListener("click", () => {
-            const updatedName = reminderNameInput.value.trim();
-            const updatedTime = reminderTimeInput.value;
-
-            if (!updatedName || !updatedTime) {
-                alert("Please enter a name and time for your reminder.");
-                return;
-            }
-
-            const [hours, minutes] = updatedTime.split(":");
-            const updatedDate = new Date();
-            updatedDate.setHours(hours);
-            updatedDate.setMinutes(minutes);
-            updatedDate.setSeconds(0);
-
-            const updatedReminder = {
-                name: updatedName,
-                time: updatedDate.getTime(),
-                triggered: false,
-            };
-
-            chrome.storage.local.get({ reminders: [] }, (result) => {
-                const reminders = result.reminders;
-                reminders[index] = updatedReminder;
-
-                chrome.storage.local.set({ reminders }, () => {
-                    displayReminders(reminders);
-                    alert(`Reminder updated to ${updatedName} at ${updatedTime}`);
-                    resetForm();
-                });
-            });
-        });
     }
 
     // Reset form and button after editing/updating
@@ -140,7 +151,39 @@ document.addEventListener("DOMContentLoaded", () => {
         reminderNameInput.value = '';
         reminderTimeInput.value = '';
         setReminderButton.textContent = "Set Reminder";
-        setReminderButton.removeEventListener("click", arguments.callee);
-        setReminderButton.addEventListener("click", addReminder);
+        selectedReminderIndex = -1;
+    }
+
+    // Function to trigger particle effect on button click
+    function triggerParticleEffect(e) {
+        const button = e.target;
+        const numberOfParticles = 280; // Increased number of particles for more effect
+
+        for (let i = 0; i < numberOfParticles; i++) {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+
+            // Randomize the particle size, color, and movement
+            const size = Math.random() * 5 + 5; // Random size between 5px and 10px
+            const color = `hsl(${Math.random() * 360}, 100%, 60%)`; // Random color
+
+            const angle = Math.random() * 2 * Math.PI;
+            const distance = Math.random() * 100 + 50; // Random distance
+            const x = distance * Math.cos(angle);
+            const y = distance * Math.sin(angle);
+
+            particle.style.setProperty('--x', `${x}px`);
+            particle.style.setProperty('--y', `${y}px`);
+            particle.style.backgroundColor = color;
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+
+            button.appendChild(particle);
+
+            // Remove particle after animation ends
+            setTimeout(() => {
+                particle.remove();
+            }, 1000); // Duration of the animation
+        }
     }
 });
