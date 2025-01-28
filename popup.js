@@ -9,10 +9,10 @@ document.addEventListener("DOMContentLoaded", () => {
         displayReminders(result.reminders);
     });
 
-    setReminderButton.addEventListener("click", (e) => {
-        // Particle effect
-        triggerParticleEffect(e);
+    setReminderButton.addEventListener("click", addReminder);
 
+    // Function to add a new reminder
+    function addReminder() {
         const reminderName = reminderNameInput.value.trim();
         const reminderTime = reminderTimeInput.value;
 
@@ -40,9 +40,10 @@ document.addEventListener("DOMContentLoaded", () => {
             chrome.storage.local.set({ reminders }, () => {
                 displayReminders(reminders);
                 alert(`Reminder set for ${reminderName} at ${reminderTime}`);
+                resetForm();
             });
         });
-    });
+    }
 
     // Display reminders
     function displayReminders(reminders) {
@@ -96,8 +97,10 @@ document.addEventListener("DOMContentLoaded", () => {
         // Change the Set button to Update
         setReminderButton.textContent = "Update Reminder";
 
-        // Handle the update functionality
+        // Remove the current event listener for adding a reminder
         setReminderButton.removeEventListener("click", addReminder);
+
+        // Add an event listener for updating the reminder
         setReminderButton.addEventListener("click", () => {
             const updatedName = reminderNameInput.value.trim();
             const updatedTime = reminderTimeInput.value;
@@ -126,28 +129,18 @@ document.addEventListener("DOMContentLoaded", () => {
                 chrome.storage.local.set({ reminders }, () => {
                     displayReminders(reminders);
                     alert(`Reminder updated to ${updatedName} at ${updatedTime}`);
-                    setReminderButton.textContent = "Set Reminder";
-                    setReminderButton.removeEventListener("click", arguments.callee);
-                    setReminderButton.addEventListener("click", addReminder);
+                    resetForm();
                 });
             });
         });
     }
 
-    // Add new reminder
-    function addReminder() {
-        const reminderName = reminderNameInput.value.trim();
-        const reminderTime = reminderTimeInput.value;
-
-        if (!reminderName || !reminderTime) {
-            alert("Please enter a name and time for your reminder.");
-            return;
-        }
-
-        const [hours, minutes] = reminderTime.split(":");
-        const reminderDate = new Date();
-        reminderDate.setHours(hours);
-        reminderDate.setMinutes(minutes);
-        reminderDate.setSeconds(0);
-
-        const newReminder =
+    // Reset form and button after editing/updating
+    function resetForm() {
+        reminderNameInput.value = '';
+        reminderTimeInput.value = '';
+        setReminderButton.textContent = "Set Reminder";
+        setReminderButton.removeEventListener("click", arguments.callee);
+        setReminderButton.addEventListener("click", addReminder);
+    }
+});
