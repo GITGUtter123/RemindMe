@@ -1,3 +1,4 @@
+/* CSS for the reminder edit functionality */
 * {
     margin: 0;
     padding: 0;
@@ -72,7 +73,8 @@ button:hover {
     align-items: center;
 }
 
-.delete-button {
+.delete-button,
+.edit-button {
     background: red;
     color: white;
     border: none;
@@ -85,9 +87,11 @@ button:hover {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-left: 5px;
 }
 
-.delete-button:hover {
+.delete-button:hover,
+.edit-button:hover {
     background: darkred;
 }
 
