@@ -55,8 +55,8 @@ button {
 
 button:hover {
     background-color: #2d4483;
-    transform: scale(1.05); /* Slightly increases the size */
-    transition: transform 0.2s ease-in-out; /* Smooth animation */
+    transform: scale(1.05);
+    transition: transform 0.2s ease-in-out;
 }
 
 #reminderList {
@@ -91,13 +91,11 @@ button:hover {
     background: darkred;
 }
 
-/* Particle effect */
+/* Enhanced Particle effect */
 .particle {
     position: absolute;
-    width: 10px;
-    height: 10px;
-    background-color: #3B5998;
     border-radius: 50%;
+    opacity: 0.8;
     animation: particleAnimation 1s forwards;
 }
 
