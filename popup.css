@@ -49,10 +49,14 @@ button {
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    position: relative;
+    overflow: hidden;
 }
 
 button:hover {
     background-color: #2d4483;
+    transform: scale(1.05);
+    transition: transform 0.2s ease-in-out;
 }
 
 #reminderList {
@@ -67,6 +71,7 @@ button:hover {
     justify-content: space-between;
     align-items: center;
 }
+
 .delete-button {
     background: red;
     color: white;
@@ -76,7 +81,7 @@ button:hover {
     height: 20px;
     text-align: center;
     cursor: pointer;
-    font-size: 12px; /* Adjusted size for better centering */
+    font-size: 12px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -84,4 +89,23 @@ button:hover {
 
 .delete-button:hover {
     background: darkred;
+}
+
+/* Enhanced Particle effect */
+.particle {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.8;
+    animation: particleAnimation 1s forwards;
+}
+
+@keyframes particleAnimation {
+    0% {
+        opacity: 1;
+        transform: scale(1) translate(0, 0);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(2) translate(var(--x), var(--y));
+    }
 }
