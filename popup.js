@@ -10,9 +10,19 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     setReminderButton.addEventListener("click", (e) => {
-        // Particle effect
+        // Trigger particle effect
         triggerParticleEffect(e);
 
+        // Determine if it's adding or updating a reminder
+        if (setReminderButton.textContent === "Set Reminder") {
+            addReminder();
+        } else {
+            updateReminder();
+        }
+    });
+
+    // Function to add a new reminder
+    function addReminder() {
         const reminderName = reminderNameInput.value.trim();
         const reminderTime = reminderTimeInput.value;
 
@@ -39,9 +49,44 @@ document.addEventListener("DOMContentLoaded", () => {
 
             chrome.storage.local.set({ reminders }, () => {
                 displayReminders(reminders);
+                resetForm();
             });
         });
-    });
+    }
+
+    // Function to update an existing reminder
+    function updateReminder() {
+        const reminderName = reminderNameInput.value.trim();
+        const reminderTime = reminderTimeInput.value;
+
+        if (!reminderName || !reminderTime) {
+            alert("Please enter a name and time for your reminder.");
+            return;
+        }
+
+        const [hours, minutes] = reminderTime.split(":");
+        const updatedDate = new Date();
+        updatedDate.setHours(hours);
+        updatedDate.setMinutes(minutes);
+        updatedDate.setSeconds(0);
+
+        const updatedReminder = {
+            name: reminderName,
+            time: updatedDate.getTime(),
+            triggered: false,
+        };
+
+        chrome.storage.local.get({ reminders: [] }, (result) => {
+            const reminders = result.reminders;
+            reminders[selectedReminderIndex] = updatedReminder;
+
+            chrome.storage.local.set({ reminders }, () => {
+                displayReminders(reminders);
+                alert(`Reminder updated to ${reminderName} at ${reminderTime}`);
+                resetForm();
+            });
+        });
+    }
 
     // Display reminders
     function displayReminders(reminders) {
@@ -52,6 +97,14 @@ document.addEventListener("DOMContentLoaded", () => {
                 reminder.triggered ? " (Reminded)" : ""
             }`;
 
+            // Create and append the "Edit" button for each reminder
+            const editButton = document.createElement("button");
+            editButton.textContent = "✎"; // Edit icon
+            editButton.classList.add("edit-button");
+            editButton.addEventListener("click", () => {
+                editReminder(index, reminder);
+            });
+
             // Create and append the "X" button for each reminder
             const deleteButton = document.createElement("button");
             deleteButton.textContent = "X";
@@ -60,6 +113,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 deleteReminder(index);
             });
 
+            li.appendChild(editButton);
             li.appendChild(deleteButton);
             reminderList.appendChild(li);
         });
@@ -75,6 +129,28 @@ document.addEventListener("DOMContentLoaded", () => {
                 displayReminders(reminders);  // Refresh the list after deletion
             });
         });
+    }
+
+    // Edit reminder
+    let selectedReminderIndex = -1;
+
+    function editReminder(index, reminder) {
+        selectedReminderIndex = index;
+
+        // Populate the input fields with the current reminder values
+        reminderNameInput.value = reminder.name;
+        reminderTimeInput.value = new Date(reminder.time).toLocaleTimeString().slice(0, 5);
+
+        // Change the Set button to Update
+        setReminderButton.textContent = "Update Reminder";
+    }
+
+    // Reset form and button after editing/updating
+    function resetForm() {
+        reminderNameInput.value = '';
+        reminderTimeInput.value = '';
+        setReminderButton.textContent = "Set Reminder";
+        selectedReminderIndex = -1;
     }
 
     // Function to trigger particle effect on button click
