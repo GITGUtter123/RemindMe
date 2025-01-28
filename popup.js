@@ -9,7 +9,10 @@ document.addEventListener("DOMContentLoaded", () => {
         displayReminders(result.reminders);
     });
 
-    setReminderButton.addEventListener("click", () => {
+    setReminderButton.addEventListener("click", (e) => {
+        // Particle effect
+        triggerParticleEffect(e);
+
         const reminderName = reminderNameInput.value.trim();
         const reminderTime = reminderTimeInput.value;
 
@@ -73,5 +76,32 @@ document.addEventListener("DOMContentLoaded", () => {
                 displayReminders(reminders);  // Refresh the list after deletion
             });
         });
+    }
+
+    // Function to trigger particle effect on button click
+    function triggerParticleEffect(e) {
+        const button = e.target;
+        const numberOfParticles = 20; // Number of particles
+
+        for (let i = 0; i < numberOfParticles; i++) {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+
+            // Randomize the particle direction and position
+            const angle = Math.random() * 2 * Math.PI;
+            const distance = Math.random() * 100 + 50; // Random distance from the click point
+            const x = distance * Math.cos(angle);
+            const y = distance * Math.sin(angle);
+
+            particle.style.setProperty('--x', `${x}px`);
+            particle.style.setProperty('--y', `${y}px`);
+
+            button.appendChild(particle);
+
+            // Remove particle after animation ends
+            setTimeout(() => {
+                particle.remove();
+            }, 1000); // Duration of the animation
+        }
     }
 });
