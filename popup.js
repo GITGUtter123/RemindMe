@@ -81,7 +81,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Function to trigger particle effect on button click
     function triggerParticleEffect(e) {
         const button = e.target;
-        const numberOfParticles = 99; // Increased number of particles for more effect
+        const numberOfParticles = 280; // Increased number of particles for more effect
 
         for (let i = 0; i < numberOfParticles; i++) {
             const particle = document.createElement('div');
