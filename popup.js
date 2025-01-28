@@ -81,20 +81,26 @@ document.addEventListener("DOMContentLoaded", () => {
     // Function to trigger particle effect on button click
     function triggerParticleEffect(e) {
         const button = e.target;
-        const numberOfParticles = 20; // Number of particles
+        const numberOfParticles = 40; // Increased number of particles for more effect
 
         for (let i = 0; i < numberOfParticles; i++) {
             const particle = document.createElement('div');
             particle.classList.add('particle');
 
-            // Randomize the particle direction and position
+            // Randomize the particle size, color, and movement
+            const size = Math.random() * 5 + 5; // Random size between 5px and 10px
+            const color = `hsl(${Math.random() * 360}, 100%, 60%)`; // Random color
+
             const angle = Math.random() * 2 * Math.PI;
-            const distance = Math.random() * 100 + 50; // Random distance from the click point
+            const distance = Math.random() * 100 + 50; // Random distance
             const x = distance * Math.cos(angle);
             const y = distance * Math.sin(angle);
 
             particle.style.setProperty('--x', `${x}px`);
             particle.style.setProperty('--y', `${y}px`);
+            particle.style.backgroundColor = color;
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
 
             button.appendChild(particle);
 
