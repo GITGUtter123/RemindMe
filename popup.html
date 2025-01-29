@@ -7,13 +7,49 @@
   <link rel="stylesheet" href="popup.css" />
 </head>
 <body>
+  <!-- Theme Dropdown -->
+
   <div class="container">
     <h1>Reminder Extension</h1>
+	 <div class="theme-selector">
+    <label for="themeDropdown">Choose Theme:</label>
+    <select id="themeDropdown">
+      <option value="light">Light</option>
+      <option value="dark">Dark</option>
+      <option value="blue">Blue</option>
+      <option value="red">Red</option>
+		<option value="green">Green</option>
+		<option value="purple">Purple</option>
+		<option value="orange">Orange</option>
+		<option value="pink">Pink</option>
+		<option value="yellow">Yellow</option>
+    </select>
+  	</div>
+    
+    <!-- Reminder Input Fields -->
     <div class="input-container">
       <input type="text" id="reminderName" placeholder="Reminder Name" />
+      <input type="date" id="reminderDate" />
       <input type="time" id="reminderTime" />
+
+      <!-- Repeat Days -->
+      <div class="repeat-days">
+        <label>Repeat on:</label>
+        <div class="repeat-options">
+          <label><input type="checkbox" class="repeat-day" value="Monday"> Mon</label>
+          <label><input type="checkbox" class="repeat-day" value="Tuesday"> Tue</label>
+          <label><input type="checkbox" class="repeat-day" value="Wednesday"> Wed</label>
+          <label><input type="checkbox" class="repeat-day" value="Thursday"> Thu</label>
+          <label><input type="checkbox" class="repeat-day" value="Friday"> Fri</label>
+          <label><input type="checkbox" class="repeat-day" value="Saturday"> Sat</label>
+          <label><input type="checkbox" class="repeat-day" value="Sunday"> Sun</label>
+        </div>
+      </div>
+
       <button id="setReminderButton">Set Reminder</button>
     </div>
+
+    <!-- Reminder List -->
     <h2>Upcoming Reminders</h2>
     <ul id="reminderList"></ul>
   </div>

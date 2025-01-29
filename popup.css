@@ -1,4 +1,4 @@
-/* CSS for the reminder edit functionality */
+/* General Reset */
 * {
     margin: 0;
     padding: 0;
@@ -7,27 +7,190 @@
 
 body {
     font-family: Arial, sans-serif;
-    background-color: #f7f7f7;
-    color: #333;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
+    transition: background-color 0.3s, color 0.3s;
+	 color:var(--text-color);
+	 background-color:var(--background-color);
+	 
 }
 
+/* Theme Variables */
+:root {
+    --background-color: #f7f7f7;
+    --primary-color: #3B5998;
+    --button-background: #3B5998;
+    --button-hover-background: #2d4483;
+    --button-text-color: white;
+    --input-border-color: #ddd;
+    --input-focus-border-color: #3B5998;
+    --text-color: #333;
+    --list-border-color: #ddd;
+    --list-item-background: white;
+}
+
+/* Light Theme */
+body[data-theme="light"] {
+    --background-color: #f7f7f7;
+    --primary-color: #3B5998;
+    --button-background: #3B5998;
+    --button-hover-background: #2d4483;
+    --button-text-color: white;
+    --input-border-color: #ddd;
+    --input-focus-border-color: #3B5998;
+    --text-color: #333;
+    --list-border-color: #ddd;
+    --list-item-background: white;
+	 --label-text-color: white;
+}
+
+/* Dark Theme */
+body[data-theme="dark"] {
+    --background-color: #34313b;
+    --primary-color: white;
+    --button-background: #44404f;
+    --button-hover-background: #34313d;
+    --button-text-color: white;
+    --input-border-color: #555;
+    --input-focus-border-color: #34313b;
+    --text-color: black;
+    --list-border-color: #444;
+    --list-item-background: #555;
+	 --label-color:white;
+	 --label-text-color: white;
+}
+
+/* Blue Theme */
+body[data-theme="blue"] {
+    --background-color: #e0f7fa;
+    --primary-color: #00796b;
+    --button-background: #00796b;
+    --button-hover-background: #004d40;
+    --button-text-color: white;
+    --input-border-color: #00796b;
+    --input-focus-border-color: #004d40;
+    --text-color: #333;
+    --list-border-color: #00796b;
+    --list-item-background: #ffffff;
+	 --label-text-color: white;
+}
+
+body[data-theme="red"] {
+    --background-color: #ffd6d6;
+    --primary-color: red;
+    --button-background: red;
+    --button-hover-background: red;
+    --button-text-color: white;
+    --input-border-color: #00796b;
+    --input-focus-border-color: #004d40;
+    --text-color: #333;
+    --list-border-color: #00796b;
+	 --label-text-color: white;
+    --list-item-background: #ffffff;
+}
+
+/* Green Theme */
+body[data-theme="green"] {
+    --background-color: #e8f5e9;
+    --primary-color: #2e7d32;
+    --button-background: #2e7d32;
+    --button-hover-background: #1b5e20;
+    --button-text-color: white;
+    --input-border-color: #2e7d32;
+    --input-focus-border-color: #1b5e20;
+    --text-color: #333;
+    --list-border-color: #2e7d32;
+    --list-item-background: white;
+	 --label-text-color: white;
+}
+
+/* Purple Theme */
+body[data-theme="purple"] {
+    --background-color: #f3e5f5;
+    --primary-color: #6a1b9a;
+    --button-background: #6a1b9a;
+    --button-hover-background: #4a148c;
+    --button-text-color: white;
+    --input-border-color: #6a1b9a;
+    --input-focus-border-color: #4a148c;
+    --text-color: #333;
+    --list-border-color: #6a1b9a;
+    --list-item-background: white;
+	 --label-text-color: white;
+}
+
+/* Orange Theme */
+body[data-theme="orange"] {
+    --background-color: #ffe0b2;
+    --primary-color: #e65100;
+    --button-background: #e65100;
+    --button-hover-background: #bf360c;
+    --button-text-color: white;
+    --input-border-color: #e65100;
+    --input-focus-border-color: #bf360c;
+    --text-color: #333;
+    --list-border-color: #e65100;
+    --list-item-background: white;
+	 --label-text-color: white;
+}
+
+/* Pink Theme */
+body[data-theme="pink"] {
+    --background-color: #fce4ec;
+    --primary-color: #c2185b;
+    --button-background: #c2185b;
+    --button-hover-background: #880e4f;
+    --button-text-color: white;
+    --input-border-color: #c2185b;
+    --input-focus-border-color: #880e4f;
+    --text-color: #333;
+    --list-border-color: #c2185b;
+    --list-item-background: white;
+	 --label-text-color: white;
+}
+
+/* Yellow Theme */
+body[data-theme="yellow"] {
+    --background-color: #fff9c4;
+    --primary-color: #f9a825;
+    --button-background: #f9a825;
+    --button-hover-background: #f57f17;
+    --button-text-color: white;
+    --input-border-color: #f9a825;
+    --input-focus-border-color: #f57f17;
+    --text-color: #333;
+    --list-border-color: #f9a825;
+    --list-item-background: white;
+	 --label-text-color: white;
+}
+
+
+
+/* Container Styles */
 .container {
-    background: white;
+    background: var(--background-color);
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 300px;
+    width: 320px;
+    transition: background-color 0.3s;
+	 color: --text-color;
 }
 
 h1, h2 {
     text-align: center;
     margin-bottom: 20px;
+    color: var(--primary-color);
 }
 
+h2 {
+    font-size: 1.2rem;
+    margin-top: 15px;
+}
+
+/* Input and Button Styles */
 .input-container {
     display: flex;
     flex-direction: column;
@@ -35,67 +198,98 @@ h1, h2 {
     margin-bottom: 20px;
 }
 
-input[type="text"], input[type="time"] {
-    padding: 8px;
+input[type="text"], input[type="time"], input[type="date"], select {
+    padding: 10px;
     font-size: 1rem;
     border-radius: 4px;
-    border: 1px solid #ddd;
+    border: 1px solid var(--input-border-color);
+    width: 100%;
+    transition: border-color 0.2s;
+}
+
+input[type="text"]:focus, input[type="time"]:focus, input[type="date"]:focus, select {
+    border-color: var(--input-focus-border-color);
+    outline: none;
 }
 
 button {
-    padding: 8px 12px;
+    padding: 10px 12px;
     font-size: 1rem;
-    background-color: #3B5998;
-    color: white;
+    background-color: var(--button-background);
+    color: var(--button-text-color);
     border: none;
     border-radius: 4px;
     cursor: pointer;
     position: relative;
     overflow: hidden;
+    transition: transform 0.2s ease-in-out, background-color 0.2s;
 }
 
 button:hover {
-    background-color: #2d4483;
+    background-color: var(--button-hover-background);
     transform: scale(1.05);
-    transition: transform 0.2s ease-in-out;
+}
+
+
+label, li{
+	color:var(--label-color);
 }
 
 #reminderList {
     list-style-type: none;
     padding: 0;
+    margin-top: 10px;
 }
 
 #reminderList li {
-    padding: 5px;
-    border-bottom: 1px solid #ddd;
+    padding: 10px;
+    border-bottom: 1px solid var(--list-border-color);
     display: flex;
     justify-content: space-between;
     align-items: center;
+    font-size: 0.9rem;
 }
 
-.delete-button,
-.edit-button {
-    background: red;
-    color: white;
-    border: none;
-    border-radius: 50%;
-    width: 20px;
-    height: 20px;
-    text-align: center;
-    cursor: pointer;
-    font-size: 12px;
+
+
+/* Repeat Days Styles */
+.repeat-days {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    gap: 5px;
+    margin-top: 10px;
+}
+
+.repeat-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.repeat-options label {
+    display: flex;
     align-items: center;
-    margin-left: 5px;
+    gap: 5px;
+    font-size: 0.85rem;
+    background-color: var(--button-background);
+    border-radius: 4px;
+    padding: 5px 10px;
+    border: 1px solid #ddd;
+    cursor: pointer;
+    transition: background-color 0.2s, border-color 0.2s;
+	 color: var(--label-text-color);
 }
 
-.delete-button:hover,
-.edit-button:hover {
-    background: darkred;
+.repeat-options label:hover {
+    background-color: var(--button-background-hover);
+    border-color: #ccc;
 }
 
-/* Enhanced Particle effect */
+input[type="checkbox"] {
+    accent-color: var(--primary-color);
+}
+
+/* Particle Effect for Buttons */
 .particle {
     position: absolute;
     border-radius: 50%;
