@@ -12,8 +12,9 @@ body {
     align-items: center;
     height: 100vh;
     transition: background-color 0.3s, color 0.3s;
-    color: var(--text-color);
-    background-color: var(--background-color);
+	 color:var(--text-color);
+	 background-color:var(--background-color);
+	 
 }
 
 /* Theme Variables */
@@ -42,7 +43,7 @@ body[data-theme="light"] {
     --text-color: #333;
     --list-border-color: #ddd;
     --list-item-background: white;
-    --label-text-color: white;
+	 --label-text-color: white;
 }
 
 /* Dark Theme */
@@ -57,29 +58,115 @@ body[data-theme="dark"] {
     --text-color: black;
     --list-border-color: #444;
     --list-item-background: #555;
-    --label-color: white;
-    --label-text-color: white;
+	 --label-color:white;
+	 --label-text-color: white;
 }
 
-/* Button Hover Glow Effect */
-button:hover {
-    background-color: var(--button-hover-background);
-    transform: scale(1.05);
-    box-shadow: 0 0 15px var(--primary-color), 0 0 20px var(--primary-color);
+/* Blue Theme */
+body[data-theme="blue"] {
+    --background-color: #e0f7fa;
+    --primary-color: #00796b;
+    --button-background: #00796b;
+    --button-hover-background: #004d40;
+    --button-text-color: white;
+    --input-border-color: #00796b;
+    --input-focus-border-color: #004d40;
+    --text-color: #333;
+    --list-border-color: #00796b;
+    --list-item-background: #ffffff;
+	 --label-text-color: white;
 }
 
-/* Input and Label Animations */
-input[type="text"]:focus, input[type="time"]:focus, input[type="date"]:focus, select {
-    border-color: var(--input-focus-border-color);
-    outline: none;
-    animation: inputFocusAnimation 0.3s ease;
+body[data-theme="red"] {
+    --background-color: #ffd6d6;
+    --primary-color: red;
+    --button-background: red;
+    --button-hover-background: red;
+    --button-text-color: white;
+    --input-border-color: #00796b;
+    --input-focus-border-color: #004d40;
+    --text-color: #333;
+    --list-border-color: #00796b;
+	 --label-text-color: white;
+    --list-item-background: #ffffff;
 }
 
-/* Input Focus Animation */
-@keyframes inputFocusAnimation {
-    0% { transform: scale(1); }
-    100% { transform: scale(1.05); }
+/* Green Theme */
+body[data-theme="green"] {
+    --background-color: #e8f5e9;
+    --primary-color: #2e7d32;
+    --button-background: #2e7d32;
+    --button-hover-background: #1b5e20;
+    --button-text-color: white;
+    --input-border-color: #2e7d32;
+    --input-focus-border-color: #1b5e20;
+    --text-color: #333;
+    --list-border-color: #2e7d32;
+    --list-item-background: white;
+	 --label-text-color: white;
 }
+
+/* Purple Theme */
+body[data-theme="purple"] {
+    --background-color: #f3e5f5;
+    --primary-color: #6a1b9a;
+    --button-background: #6a1b9a;
+    --button-hover-background: #4a148c;
+    --button-text-color: white;
+    --input-border-color: #6a1b9a;
+    --input-focus-border-color: #4a148c;
+    --text-color: #333;
+    --list-border-color: #6a1b9a;
+    --list-item-background: white;
+	 --label-text-color: white;
+}
+
+/* Orange Theme */
+body[data-theme="orange"] {
+    --background-color: #ffe0b2;
+    --primary-color: #e65100;
+    --button-background: #e65100;
+    --button-hover-background: #bf360c;
+    --button-text-color: white;
+    --input-border-color: #e65100;
+    --input-focus-border-color: #bf360c;
+    --text-color: #333;
+    --list-border-color: #e65100;
+    --list-item-background: white;
+	 --label-text-color: white;
+}
+
+/* Pink Theme */
+body[data-theme="pink"] {
+    --background-color: #fce4ec;
+    --primary-color: #c2185b;
+    --button-background: #c2185b;
+    --button-hover-background: #880e4f;
+    --button-text-color: white;
+    --input-border-color: #c2185b;
+    --input-focus-border-color: #880e4f;
+    --text-color: #333;
+    --list-border-color: #c2185b;
+    --list-item-background: white;
+	 --label-text-color: white;
+}
+
+/* Yellow Theme */
+body[data-theme="yellow"] {
+    --background-color: #fff9c4;
+    --primary-color: #f9a825;
+    --button-background: #f9a825;
+    --button-hover-background: #f57f17;
+    --button-text-color: white;
+    --input-border-color: #f9a825;
+    --input-focus-border-color: #f57f17;
+    --text-color: #333;
+    --list-border-color: #f9a825;
+    --list-item-background: white;
+	 --label-text-color: white;
+}
+
+
 
 /* Container Styles */
 .container {
@@ -89,7 +176,7 @@ input[type="text"]:focus, input[type="time"]:focus, input[type="date"]:focus, se
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 320px;
     transition: background-color 0.3s;
-    color: var(--text-color);
+	 color: --text-color;
 }
 
 h1, h2 {
@@ -120,6 +207,11 @@ input[type="text"], input[type="time"], input[type="date"], select {
     transition: border-color 0.2s;
 }
 
+input[type="text"]:focus, input[type="time"]:focus, input[type="date"]:focus, select {
+    border-color: var(--input-focus-border-color);
+    outline: none;
+}
+
 button {
     padding: 10px 12px;
     font-size: 1rem;
@@ -133,11 +225,68 @@ button {
     transition: transform 0.2s ease-in-out, background-color 0.2s;
 }
 
-/* List Item Hover Effect */
-#reminderList li:hover {
-    background-color: rgba(255, 255, 255, 0.2);
-    transform: scale(1.02);
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+button:hover {
+    background-color: var(--button-hover-background);
+    transform: scale(1.05);
+}
+
+
+label, li{
+	color:var(--label-color);
+}
+
+#reminderList {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 10px;
+}
+
+#reminderList li {
+    padding: 10px;
+    border-bottom: 1px solid var(--list-border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9rem;
+}
+
+
+
+/* Repeat Days Styles */
+.repeat-days {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-top: 10px;
+}
+
+.repeat-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.repeat-options label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.85rem;
+    background-color: var(--button-background);
+    border-radius: 4px;
+    padding: 5px 10px;
+    border: 1px solid #ddd;
+    cursor: pointer;
+    transition: background-color 0.2s, border-color 0.2s;
+	 color: var(--label-text-color);
+}
+
+.repeat-options label:hover {
+    background-color: var(--button-background-hover);
+    border-color: #ccc;
+}
+
+input[type="checkbox"] {
+    accent-color: var(--primary-color);
 }
 
 /* Particle Effect for Buttons */
